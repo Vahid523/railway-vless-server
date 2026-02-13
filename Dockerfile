@@ -1,37 +1,8 @@
-{
-  "inbounds": [
-    {
-      "port": 443,
-      "protocol": "vless",
-      "settings": {
-        "clients": [
-          {
-            "id": "f7b9d63c-6002-484b-8082-557800e217f8",
-            "flow": "xtls-rprx-direct"
-          }
-        ],
-        "decryption": "none",
-        "fallbacks": []
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "tls",
-        "tlsSettings": {
-          "certificates": [
-            {
-              "certificateFile": "/etc/xray/cert.pem",
-              "keyFile": "/etc/xray/key.pem"
-            }
-          ]
-        },
-        "wsSettings": {
-          "path": "/vless"
-        }
-      }
-    }
-  ],
-  "outbounds": [
-    { "protocol": "freedom", "settings": {} }
-  ]
-}
+FROM teddysun/xray:latest
 
+WORKDIR /app
+COPY bin /app/bin
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
